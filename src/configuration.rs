@@ -8,8 +8,8 @@ pub struct Settings {
 }
 #[derive(Deserialize)]
 pub struct ApplicationSettings{
+    pub host: String,
     pub port: u16,
-    pub host: String
 }
 
 #[derive(serde::Deserialize)]
