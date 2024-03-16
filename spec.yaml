@@ -1,5 +1,12 @@
 name: email
 region: fra
+databases:
+  - engine: PG
+    name: newsletter
+    num_nodes: 1
+    size: db-s-dev-database
+    version: 16
+
 services:
   - name: email
     dockerfile_path: Dockerfile
