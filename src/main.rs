@@ -1,9 +1,10 @@
 use email::configuration::get_configuration;
-use email::startup::run;
-use email::telemetry::*;
+use email::email_client::EmailClient;
+use email::startup::{ run, Application};
+use email::{email_client, telemetry::*};
 use sqlx::postgres:: PgPoolOptions;
 use std::net::TcpListener;
-
+use email::configuration::Settings;
 
 
 #[tokio::main]
@@ -12,14 +13,9 @@ async fn main() -> Result<(), std::io::Error> {
         "email".into(), "info".into(), std::io::stdout);
     
     init_subscriber(subscriber);
-    
     let configuration = get_configuration().expect("Failed to read configuration.");
-    let connection_pool = PgPoolOptions::new()
-        // `connect_lazy_with` instead of `connect_lazy`
-        .connect_lazy_with(configuration.database.with_db());
-    
-    let address = format!("{}:{}", configuration.application.host, configuration.application.port);
-    let listener = TcpListener::bind(address)?;
-    run(listener, connection_pool)?.await?;
+    let application = Application::build(configuration).await?;
+    application.run_until_stopped().await?;
     Ok(())
+
 }

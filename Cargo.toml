@@ -23,6 +23,10 @@ unicode-segmentation = "1.11.0"
 uuid = { version = "1.7.0", features = ["v4"] }
 validator = "0.16"
 fake="~2.3"
+[dependencies.reqwest]
+version = "0.11"
+default-features = false
+features = ["json", "rustls-tls"]
 [lib]
 path = "src/lib.rs"
 [[bin]]
@@ -30,6 +34,8 @@ path = "src/main.rs"
 name = "email"
 [dev-dependencies]
 claims = "0.7.1"
-reqwest = "0.11.25"
 quickcheck = "0.9.2"
 quickcheck_macros = "0.9.1"
+tokio = {version = "1", features = ["rt", "macros"]}
+wiremock = "0.5"
+serde_json = "1"
