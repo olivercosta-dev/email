@@ -1,10 +1,10 @@
 use email::configuration::get_configuration;
-use email::email_client::EmailClient;
-use email::startup::{ run, Application};
-use email::{email_client, telemetry::*};
-use sqlx::postgres:: PgPoolOptions;
-use std::net::TcpListener;
-use email::configuration::Settings;
+
+use email::startup::{ Application};
+use email::{telemetry::*};
+
+
+
 
 
 #[tokio::main]
